@@ -1,0 +1,485 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+	\nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+	\nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+	\nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+	\stepcounter{#1}
+	\nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+	\ifnum#1>0
+	\setcounter{homeworkProblemCounter}{#1}
+	\fi
+	\section{Problem \arabic{homeworkProblemCounter}}
+	\setcounter{partCounter}{1}
+	\enterProblemHeader{homeworkProblemCounter}
+}{
+\exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#2}
+\newcommand{\hmwkDueDate}{}
+\newcommand{\hmwkClass}{Non linear models in operations research}
+\newcommand{\hmwkClassTime}{}
+\newcommand{\hmwkClassInstructor}{}
+\newcommand{\hmwkAuthorName}{}
+
+%
+% Title Page
+%
+
+\title{
+	\vspace{2in}
+	\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+	\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+	\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+	\vspace{3in}
+}
+
+\author{\textbf{Yevgeny Shapiro 306707076, Uri Lerner 066055328}}
+
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+	
+	\maketitle
+	
+	\pagebreak
+	
+	\begin{homeworkProblem}
+		
+	\part
+	\\
+	\\
+	Let us find the general formula for eigenvalues and eigenvectors for the matrix of the form: \\
+
+	
+	\[
+	M=\begin{bmatrix}
+	a+1       & \frac{1}{2}b \\
+	\frac{1}{2}b      & 1
+	\end{bmatrix}
+	\]
+	First let us find the eigenvalues solving: 
+	\[
+	|\lambda{}I - M| = 
+		\begin{vmatrix}
+		\lambda - (a+1)       & -\frac{1}{2}b \\
+		-\frac{1}{2}b      & \lambda - 1
+		\end{vmatrix}
+		= (\lambda - a - 1)(\lambda - 1)-\frac{1}{4}b = 0
+	\]
+	Solving the equation we get: 
+	\[
+	\lambda^{2}-(2+a)\lambda - (\frac{1}{b^2} + a - 1) = 0
+	\]
+	
+	Finding the roots: \\
+	\[
+	\Delta = b^2 - 4ac = (2+a)^2 - 4(a + 1 - \frac{1}{4}b^2) = (a^2 + b^2)\\
+	\]
+	\[
+		\lambda_{1} = \frac{1}{2}(\sqrt{a^2 + b^2} + a + 2)
+	\]
+
+	\[
+		\lambda_{2} = \frac{1}{2}(-\sqrt{a^2 + b^2} + a + 2)
+	\]
+		
+	Now let us solve the equation for $\lambda_1$ \\
+	\[
+	|\lambda_{1} I - M| \cdot{}x = 0
+	\]
+		\[
+		|\lambda{}I - M| = 
+		\begin{bmatrix}
+		\lambda - (a+1)       & \frac{1}{2}b \\
+		\frac{1}{2}b      & \lambda - 1
+		\end{bmatrix}
+=
+		\begin{bmatrix}
+		\frac{1}{2}(\sqrt{a^2 + b^2} + a + 2) - a- 1)      & \frac{1}{2}b \\
+		\frac{1}{2}b      & \frac{1}{2}(\sqrt{a^2 + b^2} + a + 2)  - 1
+		\end{bmatrix}
+		\]
+			
+	This leads to the following equations:\\
+	\begin{equation}
+	(\sqrt{a^2 + b^2} - a)\cdot{}x_1 - b\cdot{}x_2 = 0
+	\end{equation}
+	\begin{equation}
+	b\cdot{}x_1 - (\sqrt{a^2 + b^2} + a)\cdot{}x_2 = 0
+	\end{equation}
+	Simplifying equation 2: 
+	\[
+	x_1 = \frac{\sqrt{a^2 + b^2} + a}{b}\cdot{}x_2
+	\]
+	Which corresponds to the eigenvector: 
+	\[
+	\begin{bmatrix}
+	\frac{\sqrt{a^2 + b^2} + a}{b} &
+	 1
+	\end{bmatrix}^T
+	\]
+	Assigning these values to equation (1) results in 0 = 0, hence, this is a valid solution. \\
+	\\
+	Similarly, for $\lambda_2$ we get:
+			\[
+			\begin{bmatrix}
+			\frac{-\sqrt{a^2 + b^2} + a}{b} &
+			1
+			\end{bmatrix}^T
+			\]
+	Thus, the eigenvalues and eigenvectors can be represented as: 
+	\[
+	D = 	\begin{bmatrix}
+	\frac{1}{2}(\sqrt{a^2 + b^2} + a + 2)       & 0 \\
+	0      & \frac{1}{2}(-\sqrt{a^2 + b^2} + a + 2)
+	\end{bmatrix}
+	\]
+	\[
+	U = 	\begin{bmatrix}
+			\frac{\sqrt{a^2 + b^2} + a}{b}       & \frac{-\sqrt{a^2 + b^2} + a}{b} \\
+			1      & 1
+		\end{bmatrix}
+	\]
+	
+	\part
+	\\
+	Given 
+		\[
+	P = \begin{bmatrix}
+		-4      & 2 \\
+		2      & -2
+		\end{bmatrix}
+		\]
+	We would like to use the general formula from part A. Thus, we need to adjust the matrix $P$ to the form of matrix $M$.\\
+			\[
+			P = -2\cdot{}\begin{bmatrix}
+			2      & -1 \\
+			-1      & 1
+			\end{bmatrix}
+			\]
+			 
+	Now we have a similar form, with $ a = 1, b = -2$\\
+	
+		\[
+		D_{P} = 	-2 \cdot{}\begin{bmatrix}
+		\frac{1}{2}(\sqrt{a^2 + b^2} + a + 2)       & 0 \\
+		0      & \frac{1}{2}(-\sqrt{a^2 + b^2} + a + 2)
+		\end{bmatrix}
+		=
+		-2 \cdot{}
+		\begin{bmatrix}
+		\frac{1}{2}(\sqrt{5} + 3)       & 0 \\
+		0      & \frac{1}{2}(-\sqrt{5} + 3)  
+		\end{bmatrix}  
+		= 
+		\begin{bmatrix}
+		-(\sqrt{5} + 3)       & 0 \\
+		0      & (\sqrt{5} - 3)  
+		\end{bmatrix}
+		\]
+However, the eigenvectors are defined up to a constant, and do not change under scalar multiplication.		
+		
+		
+		
+		\[
+				U_P = 	\begin{bmatrix}
+				\frac{\sqrt{a^2 + b^2} + a}{b}       & \frac{-\sqrt{a^2 + b^2} + a}{b} \\
+				1      & 1
+		\end{bmatrix}
+		 = \begin{bmatrix}
+		\frac{\sqrt{5} + 1}{-2}  & \frac{-\sqrt{5} + 1}{-2} \\
+		1      & 1
+		\end{bmatrix}
+		\]
+
+		
+\part
+\\
+Given 
+		\[
+	A =  \begin{bmatrix}
+		1      & -2 & 3 & -1 \\
+		-2    & 1 & -1 & -2
+		\end{bmatrix}
+		\]
+In order to obtain the singular values of $A$ we can use the square root of the eigenvalues of $AA^T$:\\
+		\[
+		AA^T =  \begin{bmatrix}
+		1      & -2 & 3 & -1 \\
+		-2    & 1 & -1 & -2
+		\end{bmatrix}
+		\cdot{} \begin{bmatrix}
+			1      & -2 \\
+			-2    & 1 \\
+			3 & -1 \\
+			-1 & -2 
+		\end{bmatrix}
+		 =
+		  \begin{bmatrix}
+		  15    & -5 \\
+		  -5    & 10 \\
+		  \end{bmatrix}
+		\]
+In order to use the general formula, we can divide the matrix by 10 and get:\\
+\[
+ AA^T =	10\cdot{} \begin{bmatrix}
+		1.5   & -0.5 \\
+		-0.5    & 1 \\
+	\end{bmatrix}
+\]
+With $a = 0.5, b = -1$
+
+
+	\[
+	D_{AA^T} = 	10 \cdot{}\begin{bmatrix}
+	\frac{1}{2}(\sqrt{a^2 + b^2} + a + 2)       & 0 \\
+	0      & \frac{1}{2}(-\sqrt{a^2 + b^2} + a + 2)
+	\end{bmatrix}
+	=
+	5 \cdot{}\begin{bmatrix}
+	(\frac{\sqrt{5}}{2} + 2.5)       & 0 \\
+	0      & (-\frac{\sqrt{5}}{2} + 2.5)
+	\end{bmatrix}
+	 = 
+	 \begin{bmatrix}
+	 \frac{5(\sqrt{5} + 5)}{2}       & 0 \\
+	 0      &  \frac{5(-\sqrt{5} + 5)}{2} 
+	 \end{bmatrix}
+	\]
+
+To find the singular values of A, we need to take the square root of the eigenvalues of $AA^T$:
+
+	\[
+	\lambda_1 = \sqrt{\frac{5(\sqrt{5} + 5)}{2}}
+	\]
+	\[
+	\lambda_2 = \sqrt{-\frac{5(\sqrt{5} + 5)}{2}}
+	\]
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+Going left to right, 
+Proving inequality 1: $\frac{1}{\sqrt{n}}\lVert x \rVert_2  \leq  \lVert x \rVert_{\infty}$\\
+\[
+\mathbf{\frac{1}{\sqrt{n}}\lVert x \rVert_2} = \frac{1}{\sqrt{n}}\sqrt{\sum_{i = 1}^{n}x^2} \leq  \frac{1}{\sqrt{n}}\cdot{}\sqrt{n\cdot{}\max_{i}x_i^2} = \max_i{}|x_i| = \mathbf{\lVert x \rVert_{\infty}
+}\]
+hence 
+\[
+\frac{1}{\sqrt{n}}\lVert x \rVert_2  \leq  \mathbf{\lVert x \rVert_{\infty}
+}\]
+\\
+Proving inequality 2: $\lVert x \rVert_{\infty}  \leq  \lVert x \rVert_{2}$\\
+\\
+Let us define $\alpha$ as the sum of the rest of the elements, without  $\arg\max_i x_i^2$.
+thus:
+\[
+\sqrt{\sum_{i=1}^n x_i^2} = \sqrt{\max_{i}x_i^2 + \alpha}
+\]
+Because $\alpha \geq 0$ we have:
+\[
+\sqrt{\max_{i}x_i^2 + \alpha} \geq \sqrt{\max_{i}x_i^2} =  \lVert x \rVert_{\infty}
+\]
+Hence: 
+\[
+\lVert x \rVert_{\infty}  \leq  \lVert x \rVert_{2}
+	\]
+Proving inequality 3: $\lVert x \rVert_{2}  \leq  \lVert x \rVert_{1}$\\
+According to the triangle inequality, the sum of norms is less or equal then the norm of sums. \\
+\\
+Proving inequality 4: $\lVert x \rVert_{1}  \leq \sqrt{n} \lVert x \rVert_{2}$\\
+Based on the of Cauchy-Schwarz inequality: 
+$\lvert x\cdot{}y \rvert \leq  \lVert x \rVert_2 \lVert y \rVert_2$\\
+We can define $y = sign(x)$ of length n, such that $\lVert y \rVert_2 \leq \sqrt{n}$ (since for zeros $sign(x)=0$). \\Thus: \\
+\[
+\lVert x \rVert_1 = |x \cdot{}sign(x)|  \leq  \lVert x \rVert_2 \lVert y \rVert_2  \leq \sqrt{n} \lVert x \rVert_2 
+\]
+Hence: 
+\[
+\lVert x \rVert_1 \leq  \sqrt{n} \lVert x \rVert_2 
+\]
+
+Proving inequality 5: $\sqrt{n} \lVert x \rVert_2  \leq n \lVert x \rVert_{\infty}$\\
+\\
+In inequality 1 we proved that: $\frac{1}{\sqrt{n}}\lVert x \rVert_2  \leq  \lVert x \rVert_{\infty}$\\
+multiplying by $n$ we get $\sqrt{n} \lVert x \rVert_2  \leq n \lVert x \rVert_{\infty}$
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+Using the Cauchy-Schwarz formula for: 
+\[
+\frac{\lVert x \rVert_1^2}{\lVert x \rVert_2^2} = \frac{\lvert x \cdot{} sign(x) \rvert^2}{\lVert x \rVert_2^2} \leq
+\frac{\lVert x \rVert_2^2 \cdot{}\sum_{i = 1}^n (sign(x))^2 }{\lVert x \rVert_2^2} = 
+\frac{\lVert x \rVert_2^2 \lVert x \rVert_0}{\lVert x \rVert_2^2} = \lVert x \rVert_0
+\]
+The sum of $sign(x)^2$ or $|sign(x)|$ are equal to $\lVert x \lVert_0$, because only the non zero values contribute to the sum. 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\part
+	\\
+	\\
+	(1)
+	\\
+		Proving: if A is an orthogonal matrix then $\phi{}(A) = 0$ \\
+	If A is an orthogonal matrix, $A^TA = I$, hence for each row individually we have: 
+		\[
+		A_{i}^T{}A_j = 
+		\begin{cases}
+		1 & \text{if } i = j \\
+		0 & \text{if } i \neq j
+		\end{cases} 
+		\]
+	Using the definition of the function $\phi$ and the definition of $\delta$, we see that for $|A_{i}^T{}A_j - \delta_{i,j}|$ \\
+	\[
+	|A_{i}^T{}A_j - \delta_{i,j}| = 
+	\begin{cases}
+	1& \text{if } i = j \\
+	0& \text{if } i \neq j
+	\end{cases}
+	 - 
+	\begin{cases}
+	1& \text{if } i = j \\
+	0& \text{if } i \neq j
+	\end{cases}
+	 =
+	\begin{cases}
+	0& \text{if } i = j \\
+	0& \text{if } i \neq j
+	\end{cases}
+	\]
+	
+	\textbf{Thus the sum over $i,j$ is also zero.} \\
+	\\
+	(2) 
+	\\
+	Proving: if $\phi{}(A) = 0$ then A is an orthogonal matrix  \\
+	Proving by contradiction, let us assume that $\phi{}(A) = 0$, but A is not an orthogonal matrix.\\ 
+	A non orthogonal matrix will be characterized by at least one incident of the following two cases\\
+	\\
+	Case 1: \\
+	Matrix A has at least one pair of vectors which are not orthogonal i.e. $\exists{}\hat{i},\hat{j}$ such that $\hat{i} \neq\hat{j}$ but $A_{\hat{i}}^T A_{\hat{j}} \neq 0$\\ 
+	In this case, at least one of the elements included in the summation within the function $\phi$ will not be equal 0 (as $\delta_{ij} = 0$ for this element). Individual elements in the summation 
+	cannot cancel each other, as each element is taken as an absolute value.\\
+	Eventually, $\phi{}(A)$ will not be equal zero.\\
+	\\
+	Case 2: \\
+	Matrix A has at least one vector which is not normalized i.e. $\exists{}\hat{i}$ such that $A_{\hat{i}}^T A_{\hat{i}} \neq 1$\\
+		In this case, at least one of the elements included in the summation within the function $\phi$ will not be equal 0 (as $\delta_{ij} = 1$ for this element, but $A_{\hat{i}}^T A_{\hat{i}} - \delta_{ij} \neq 0$). Individual elements in the summation 
+		cannot cancel each other, as each element is taken as an absolute value.\\
+		Eventually, $\phi{}(A)$ will not be equal zero.\\
+	\\
+	As we showed, there cannot be any non orthogonal matrix $A$ that will result in $\phi{}(A) = 0$, we \textbf{contradict our initial assumption}.	\\
+	\\
+\textbf{Finally}, we proved both directions, hence $\phi{}(A) = 0$ if and only if A is an orthogonal matrix.
+	\part \\
+	\\
+	Running the commands:\\
+	A = [−3 1 1 ; 2 1 −1; 2 3 2 ];\\
+	B = orth(A)+0.1*ones(size(A));\\
+	orthogonality\_measure(B)\\
+	The output is: \\
+	ans =\\
+	1.0460\\
+	\\ 
+	For orth(A) we got a value infinitesimally close to zero, however, $B = orth(A) + \epsilon$.
+\end{homeworkProblem}
+	\pagebreak
+	
+
+
+\end{document}
